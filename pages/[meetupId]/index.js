@@ -40,7 +40,7 @@ export async function getStaticPaths() {
     client.close();
 
     return {
-        fallback: false,
+        fallback: 'blocking',
         // In real projects, we fetch these Ids from a database or API
         paths: meetups.map(meetup => ({
             params: {
@@ -78,7 +78,7 @@ export async function getStaticProps(context) {
     const meetupsCollections = db.collection('meetups');
 
     const selectedMeetup = await meetupsCollections.findOne({
-        _id: ObjectId(meetupId)
+        _id: new ObjectId(meetupId)
     });
 
     client.close();
